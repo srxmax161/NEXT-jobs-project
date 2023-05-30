@@ -21,7 +21,7 @@
             application_instructions: evt.target['application instructions'].value
         }
 
-        const resp = await fetch(PUBLIC_BACKEND_BASE_URL +'/api/collections/users/records',{
+        const resp = await fetch(PUBLIC_BACKEND_BASE_URL + '/api/collections/users/records',{
             method:'POST',
             mode: 'cors',
             headers: {
