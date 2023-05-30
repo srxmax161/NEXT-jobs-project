@@ -20,7 +20,7 @@
     
 </script>
 
-<h1 class="text-center text-2xl mt-5 font-bold sm:text-3xl">Login</h1>
+<h1 class="font-style text-center text-2xl mt-5 font-bold sm:text-4xl">LOGIN</h1>
 <div class="flex justify-center items-center mt-8">
     <form on:submit={signIn} class="w-1/3">
 	<div class="form-control w-full">
@@ -30,7 +30,7 @@
 		<input
 			type="text"
 			name="username"
-			placeholder="Type here"
+			placeholder="Please insert your username"
 			class="input input-bordered w-full"
 			required
 		/>
@@ -48,7 +48,8 @@
 		/>
 	</div>
     <div class="form-control w-full mt-4">
-		<button class="btn" on:submit={authenticateUser}>Log In</button>
+		<button class="btn text-3xl" on:submit={authenticateUser}>Log In</button>
 	</div>
 </form>
 </div>
+

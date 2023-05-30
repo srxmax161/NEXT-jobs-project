@@ -5,7 +5,7 @@
     let formErrors = {};
   
     function postSignUp() {
-      goto('/jobs/new');
+      goto('/');
     }
   
     async function createUser(evt) {
@@ -57,7 +57,7 @@
               <label class="label" for="username">
                   <span class="label-text">Username</span>
               </label>
-              <input type="text" name="username" placeholder="johndoe" class="input input-bordered w-full" />
+              <input type="text" name="username" placeholder="example" class="input input-bordered w-full" />
               {#if 'username' in formErrors}
               <label class="label" for="username">
                   <span class="label-text-alt text-red-500">{formErrors['username'].message}</span>
@@ -69,7 +69,7 @@
               <label class="label" for="email">
                   <span class="label-text">Email</span>
               </label>
-              <input type="email" name="email" placeholder="john@example.com" class="input input-bordered w-full" required />
+              <input type="email" name="email" placeholder="example@example.com" class="input input-bordered w-full" required />
               {#if 'email' in formErrors}
               <label class="label" for="email">
                   <span class="label-text-alt text-red-500">{formErrors['email'].message}</span>

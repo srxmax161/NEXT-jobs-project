@@ -1,10 +1,16 @@
 <nav class='flex justify-between'>
   <div>
-  <a href='/'>DATABASE</a>
+  <button class='btn'>
+    <a href='/'>DATABASE</a>
+  </button>
   </div>
   <div>
-  <a href='/users/new'>SIGNUP</a>
-  <a href='/login'>LOG IN</a>
+  <button class='btn'>
+    <a href='/users/new'>SIGNUP</a>
+  </button>
+  <button class='btn'>
+    <a href='/login'>LOG IN</a>
+  </button>
   </div>
 </nav>
 
