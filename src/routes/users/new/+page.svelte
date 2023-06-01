@@ -4,7 +4,7 @@
     import { authenticateUser } from './../../../utils/auth.js';
     let formErrors = {};
   
-    function postSignUp() {
+    async function postSignUp() {
       goto('/');
     }
   
@@ -57,7 +57,10 @@
               <label class="label" for="username">
                   <span class="label-text">Username</span>
               </label>
-              <input type="text" name="username" placeholder="example" class="input input-bordered w-full" />
+              <input type="text" 
+                     name="username" 
+                     placeholder="example" 
+                     class="input input-bordered w-full" />
               {#if 'username' in formErrors}
               <label class="label" for="username">
                   <span class="label-text-alt text-red-500">{formErrors['username'].message}</span>

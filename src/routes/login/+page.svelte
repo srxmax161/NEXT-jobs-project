@@ -48,7 +48,7 @@
 		/>
 	</div>
     <div class="form-control w-full mt-4">
-		<button class="btn text-3xl" on:submit={authenticateUser}>Log In</button>
+		<button class="btn text-3xl" href='/'>Log In</button>
 	</div>
 </form>
 </div>

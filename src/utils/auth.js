@@ -1,4 +1,6 @@
+import { goto } from '$app/navigation';
 import { PUBLIC_BACKEND_BASE_URL } from '$env/static/public';
+import { loggedIn } from '../routes/store';
 
 const emptyAuth = {
   "token": "",
@@ -52,6 +54,8 @@ export async function isLoggedIn() {
         "userId": res.record.id
       }));
 
+      loggedIn.set(true)
+
       return true
     }
 
@@ -84,7 +88,9 @@ export async function authenticateUser(username, password) {
       "token": res.token,
       "userId": res.record.id
     }));
-
+    
+    loggedIn.set(true)
+    
     return {
       success: true,
       res: res
