@@ -34,7 +34,7 @@ function logOut(evt){
       </button>
     {:else}
       <button class="btn">
-        <a href='/jobs/[slug]/new'>POST JOBS</a>
+        <a href='/jobs/new'>POST JOBS</a>
       </button>
       <button class="btn" on:click={logOut}>LOG OUT
       </button>
