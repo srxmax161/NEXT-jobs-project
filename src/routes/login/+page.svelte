@@ -32,10 +32,9 @@
 			name="username"
 			placeholder="Please insert your username"
 			class="input input-bordered w-full"
-			required
 		/>
 	</div>
-	<div class="form-control w-full">
+	<div class="form-control w-full mt-5">
 		<label class="label" for="password">
 			<span class="label-text text-xl">Password</span>
 		</label>
@@ -44,7 +43,6 @@
 			name="password"
 			placeholder="Please insert your password"
 			class="input input-bordered w-full"
-			required
 		/>
 	</div>
     <div class="form-control w-full mt-4">

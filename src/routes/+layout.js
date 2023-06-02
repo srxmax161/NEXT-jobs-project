@@ -3,3 +3,4 @@ export const ssr = false; // this essentially turns our entire project into true
 export async function load(){
     await isLoggedIn()
 }
+

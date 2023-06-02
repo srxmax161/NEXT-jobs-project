@@ -12,14 +12,6 @@ export function logOut() {
   return true
 }
 
-export function getJobId(){
-  const auth = localStorage.getItem("auth")
-  if (auth) {
-    return JSON.parse(auth)["jobId"]
-  }
-  return null
-}
-
 export function getUserId() {
   const auth = localStorage.getItem("auth")
   if (auth) {

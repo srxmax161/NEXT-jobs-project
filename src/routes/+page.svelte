@@ -12,7 +12,7 @@
 	<!--creating a loop with the data being jobs-->
 	{#each data.jobs as job}
 		<!--allows class to have a flexible length with a flexible comlumn with the top margin set at 40%-->
-		<div class="flex flex-col mt-10">
+		<div class="flex flex-col mt-10 ml-5 mr-5">
 			<div>
 				<!--prints out job title with 2xl font size and bold fonts-->
 				<a class="font-bold text-2xl" href="/jobs/{job.id}">{job.title}</a>

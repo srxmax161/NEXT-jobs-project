@@ -24,7 +24,7 @@
 		};
 
 		const resp = await fetch(PUBLIC_BACKEND_BASE_URL + '/api/collections/jobs/records ', {
-			method: 'POST',
+			method: 'PATCH',
 			mode: 'cors',
 			headers: {
 				'Content-Type': 'application/json'
@@ -44,7 +44,7 @@
 <h1 class="text-center text-3xl font-bold display-flex align-middle">POST JOBS</h1>
 <div>
 	<form on:submit={inputform}>
-		<div class="form-control w-full left">
+		<div class="form-control w-full left px-36">
 			<label class="label" for="job title">
 				<span class="label-text">Job Title</span>
 			</label>
@@ -56,7 +56,7 @@
 				required
 			/>
 		</div>
-		<div class="form=control w=full">
+		<div class="form-control w=full px-36 mt-5">
 			<label class="label" for="minAnnualCompensation">
 				<span class="label-text">Minimum Annual Compensation</span>
 			</label>
@@ -68,7 +68,7 @@
 				required
 			/>
 		</div>
-		<div class="form=control w=full">
+		<div class="form-control w=full px-36 mt-5">
 			<label class="label" for="maxAnnualCompensation">
 				<span class="label-text">Maximum Annual Compensation</span>
 			</label>
@@ -80,7 +80,7 @@
 				required
 			/>
 		</div>
-		<div class="form=control w=full">
+		<div class="form-control w=full px-36 mt-5">
 			<label class="label" for="employer">
 				<span class="label-text">Company Name</span>
 			</label>
@@ -92,7 +92,7 @@
 				required
 			/>
 		</div>
-		<div class="form=control w=full">
+		<div class="form-control w=full px-36 mt-5">
 			<label class="label" for="location">
 				<span class="label-text">Job Location</span>
 			</label>
@@ -104,19 +104,19 @@
 				required
 			/>
 		</div>
-		<div class="form=control w=full">
+		<div class="form-control w-full px-36 mt-5">
 			<label class="label" for="description">
 				<span class="label-text">Description</span>
 			</label>
-			<input
+			<textarea
 				type="text"
 				name="description"
 				placeholder="Please input your job description"
-				class="input input-bordered w-full"
+				class="textarea textarea-bordered w-full h-56"
 				required
 			/>
 		</div>
-		<div class="form=control w=full">
+		<div class="form-control w-full px-36 mt-5">
 			<label class="label" for="requirements">
 				<span class="label-text">Requirements</span>
 			</label>
@@ -128,7 +128,7 @@
 				required
 			/>
 		</div>
-		<div class="form=control w=full">
+		<div class="form-control w=full px-36 mt-5">
 			<label class="label" for="applicationInstructions">
 				<span class="label-text">Applicaiton Instructions</span>
 			</label>
@@ -140,7 +140,7 @@
 				required
 			/>
 		</div>
-		<div class="form-control w-full">
+		<div class="form-control w-full px-36 mt-5 mb-5">
 			<button class="btn text 3xl">POST JOB</button>
 		</div>
 	</form>

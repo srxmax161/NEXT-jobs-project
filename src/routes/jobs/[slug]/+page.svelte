@@ -1,10 +1,22 @@
 <script>
 	import SvelteMarkdown from 'svelte-markdown';
 	import humanize from 'humanize-plus';
+	import { getUserId } from '../../../utils/auth';
+    import { loggedIn } from '../../store.js';
 	export let data;
+
+
 </script>
 
-<div class="mt-10">
+<div>
+    {#if $loggedIn == true && getUserId() == data.job.user}
+        <button class='mt-10 btn ml-4'>
+            <a href='/jobs/{data.job.id}/update'>UPDATE
+		</button>
+    {/if}
+</div>
+
+<div class="mt-5 ml-4" >
 	<div class="flex">
 		<div class="flex-1">
 			<h1 class="text-3xl font-extrabold">{data.job.title}</h1>
@@ -12,7 +24,7 @@
 		</div>
 	</div>
 
-	<div class="flex flex-row w-full mt-8">
+	<div class="flex flex-row w-full mt-8 mb-10">
 		<div class="basis-2/3 prose max-w-none w-full">
 			<h2 class="text-xl font-thin">Description</h2>
 			<SvelteMarkdown source={data.job.description} />
