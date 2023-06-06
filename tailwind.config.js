@@ -8,7 +8,7 @@ export default {
     require("daisyui"),
     require('@tailwindcss/typography')],
   daisyui: {
-    theme: ["night,light"]
+    theme: ["night", "light", "dark"]
   }
 }
 

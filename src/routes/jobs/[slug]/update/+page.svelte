@@ -4,7 +4,7 @@
     import { goto } from '$app/navigation'
     import { getUserId, getTokenFromLocalStorage } from '../../../../utils/auth';
 
-    let jobId;
+    let clicked = false
     let formErrors = {}
 
     function afterUpdateJobs(){
@@ -147,7 +147,11 @@
 			/>
 		</div>
 		<div class="form-control w-full px-36 mt-5">
-			<button class="btn text 3xl mb-10">UPDATE JOB</button>
+            {#if clicked}
+            <button class="btn btn-md bg-purple-700 hover:bg-purple-800 loading">Update Job</button>
+        {:else}
+            <button class="btn btn-md bg-purple-700 hover:bg-purple-800">Update Job</button>
+        {/if}
 		</div>
 	</form>
 </div>

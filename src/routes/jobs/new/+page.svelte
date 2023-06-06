@@ -24,7 +24,7 @@
 		};
 
 		const resp = await fetch(PUBLIC_BACKEND_BASE_URL + '/api/collections/jobs/records ', {
-			method: 'PATCH',
+			method: 'POST',
 			mode: 'cors',
 			headers: {
 				'Content-Type': 'application/json'
