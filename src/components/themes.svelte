@@ -9,7 +9,7 @@
     let darkMode = null
 
     if(localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)){
-        localStorage.setItem('theme','dark')
+        localStorage.setItem('theme','night')
         darkMode = true
         console.log("dark")
     } else if (localStorage.theme === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)){
@@ -21,7 +21,7 @@
 <div class="flex ml-auto mr-4">
     <label class="swap swap-rotate">
         <!-- this hidden checkbox controls the state -->
-        <input type="checkbox" />
+        <input type="checkbox" data-toggle-theme="night,light" data-act-class="ACTIVECLASS" />
 
         <!-- sun icon -->
         <svg
