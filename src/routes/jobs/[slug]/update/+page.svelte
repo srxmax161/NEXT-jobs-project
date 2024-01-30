@@ -1,21 +1,36 @@
 <script>
-    export let data;
     import { PUBLIC_BACKEND_BASE_URL} from '$env/static/public'
     import { goto } from '$app/navigation'
-    import { getUserId, getTokenFromLocalStorage } from '../../../../utils/auth';
+    import { getUserId, getTokenFromLocalStorage } from './src/utils/auth';
+	import { statusSpinner } from './src/components/spinner';
+	import Spinner from './src/components/Spinner.svelte';
+	import { showEditAlert, warningAlert } from './src/utils/alert';
 
-    let clicked = false
+	export let data
+
     let formErrors = {}
 
     function afterUpdateJobs(){
         goto(`/jobs/${data.job.id}`)
     }
 
-    async function updateJobs(evt){
+    async function updateJobs(evt) {
+		statusSpinner.set(true)
         evt.preventDefault() 
+		// formErrors = {};
+		// if (evt.target['minAnnualCompensation'].value < 1000){
+		// 	formErrors['minAnnualCompensation'] = { message: 'Must be larger than 1000.00'}
+		// }
+		// if (evt.target['maxAnnualCompensation'].value < 1000) {
+		// 	formErrors['maxAnnualCompensation'] = { message: 'Must be larger than 1000.00' };
+		// }
+		// if (evt.target['appinstruction'].value.length < 10) {
+		// 	formErrors['appinstruction'] = { message: 'Must have at least 10 characters' };
+		// }
+
+
         const getLocalData = getUserId();
-    
-    const inputData = {
+		const inputData = {
 			user: getLocalData,
 			title: evt.target['title'].value,
 			minAnnualCompensation: evt.target['minAnnualCompensation'].value,
@@ -26,7 +41,6 @@
 			requirements: evt.target['requirements'].value,
 			applicationInstructions: evt.target['applicationInstructions'].value
 		};
-
 
 		const resp = await fetch(PUBLIC_BACKEND_BASE_URL + `/api/collections/jobs/records/${data.job.id}`, {
 			method: 'PATCH',
@@ -39,10 +53,12 @@
 		});
 
 		if (resp.status === 200) {
+			warningAlert.set(false)
+			statusSpinner.set(false)
 			afterUpdateJobs();
 		} else {
-			const res = await resp.json;
-			formErrors = res.data;
+			statusSpinner.set(false)
+			showEditAlert()
 		}
     }
 </script>
@@ -97,6 +113,11 @@
 				class="input input-bordered w-full"
 				required
 			/>
+			{#if 'employer' in formErrors}
+					<label class="label" for="employer">
+						<span class="label-text-alt text-red-500">{formErrors['employer'].message}</span>
+					</label>
+				{/if}
 		</div>
 		<div class="form-control w=full px-36 mt-5">
 			<label class="label" for="location">
@@ -109,6 +130,11 @@
 				class="input input-bordered w-full"
 				required
 			/>
+			{#if 'location' in formErrors}
+			<label class="label" for="location">
+				<span class="label-text-alt text-red-500">{formErrors['location'].message}</span>
+			</label>
+		{/if}
 		</div>
 		<div class="form-control w=full px-36 mt-5">
 			<label class="label" for="description">
@@ -121,6 +147,11 @@
 				class="textarea textarea-bordered w-full h-56"
 				required
 			/>
+			{#if 'description' in formErrors}
+			<label class="label" for="description">
+				<span class="label-text-alt text-red-500">{formErrors['description'].message}</span>
+			</label>
+		{/if}
 		</div>
 		<div class="form-control w=full px-36 mt-5">
 			<label class="label" for="requirements">
@@ -133,6 +164,11 @@
 				class="input input-bordered w-full"
 				required
 			/>
+			{#if 'requirement' in formErrors}
+			<label class="label" for="requirement">
+				<span class="label-text-alt text-red-500">{formErrors['requirement'].message}</span>
+			</label>
+		{/if}
 		</div>
 		<div class="form-control w=full px-36 mt-5">
 			<label class="label" for="applicationInstructions">
@@ -145,13 +181,14 @@
 				class="input input-bordered w-full"
 				required
 			/>
+			{#if 'appinstruction' in formErrors}
+			<label class="label" for="appinstruction">
+				<span class="label-text-alt text-red-500">{formErrors['appinstruction'].message}</span>
+			</label>
+		{/if}
 		</div>
 		<div class="form-control w-full px-36 mt-5">
-            {#if clicked}
-            <button class="btn btn-md bg-purple-700 hover:bg-purple-800 loading">Update Job</button>
-        {:else}
-            <button class="btn btn-md bg-purple-700 hover:bg-purple-800">Update Job</button>
-        {/if}
+            <button class="btn text 3xl"><Spinner/>UPDATE JOB</button>
 		</div>
 	</form>
 </div>

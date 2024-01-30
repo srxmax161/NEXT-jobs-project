@@ -1,53 +1,102 @@
 <script>
-    import { authenticateUser} from "../../utils/auth";
-    import { goto } from '$app/navigation'
+	import { authenticateUser } from '../../utils/auth';
+	import { goto } from '$app/navigation';
+	import { showLoginAlert, warningAlert, loginSucAlert } from '../../utils/alert.js';
+	import Spinner from '../../components/Spinner.svelte';
+	import { statusSpinner } from '../../components/spinner.js';
+	import { alerts } from '../../utils/newalert';
+	
+	let formErrors = {};
+	let msg = "Login";
 
-    async function signIn(evt) {
-        evt.preventDefault();
+	function postLogIn() {
+		goto('/');
+		loginSucAlert()
+	}
+	async function logInUser(evt) {
+		statusSpinner.set(true);
+		msg = "Logging In";
+		evt.preventDefault();
+		const userData = {
+			username: evt.target['username'].value,
+			password: evt.target['password'].value
+		};
+		const res = await authenticateUser(userData.username, userData.password);
+		console.log(res)
 
-        const result = {
-        username: evt.target['username'].value,
-        password: evt.target['password'].value, 
-        }
+		if (res.success) {
+			statusSpinner.set(false);
+			warningAlert.set(false);
+			postLogIn();
+		} else {
+			msg = "Login";
+			statusSpinner.set(false);
+			showLoginAlert();
+			// alerts.setAlert('Please check your usersname/password', 'error');
+			// setTimeout(() => {
+			// 	alerts.clearAlert();
+			// }, 1000)
+		}
+	}
 
-
-        const res = await authenticateUser(result.username, result.password)
-        if (res.success) {
-            goto('/')
-        }
-    }
-    
-    
+	let sayHello = false;
+	let name = '';
+	function updateSayHello() {
+		if (name !== '') {
+			sayHello = true;
+		}
+	}
 </script>
 
-<h1 class="font-style text-center text-2xl mt-5 font-bold sm:text-4xl">LOGIN</h1>
-<div class="flex justify-center items-center mt-8">
-    <form on:submit={signIn} class="w-1/3">
-	<div class="form-control w-full">
-		<label class="label" for="username">
-			<span class="label-text text-xl">Username</span>
-		</label>
-		<input
-			type="text"
-			name="username"
-			placeholder="Please insert your username"
-			class="input input-bordered w-full"
-		/>
-	</div>
-	<div class="form-control w-full mt-5">
-		<label class="label" for="password">
-			<span class="label-text text-xl">Password</span>
-		</label>
-		<input
-			type="password"
-			name="password"
-			placeholder="Please insert your password"
-			class="input input-bordered w-full"
-		/>
-	</div>
-    <div class="form-control w-full mt-4">
-		<button class="btn text-3xl" href='/'>Log In</button>
-	</div>
-</form>
-</div>
+<svelte:head>
+	<title>Next Jobs | Login</title>
+</svelte:head>
 
+<div class="mx-auto my-3 bg-neutral rounded-box max-w-lg py-20 ease-in duration-200 shadow-2xl">
+	<div class="prose mx-auto">
+		<h1 class="text-center text-xl ">Login your account</h1>
+	</div>
+	{#if sayHello}
+		<h2 class="text-center text-md">Hi {name}</h2>
+	{/if}
+	<div class="flex justify-center items-center mt-8">
+		<form on:submit={logInUser} class="w-full mx-10">
+			<div class="form-control w-full">
+				<label class="label" for="username">
+					<span class="label-text">Username</span>
+				</label>
+				<input
+					type="text"
+					name="username"
+					placeholder="Enter your username"
+					class="input input-bordered w-full"
+					bind:value={name}
+					on:input={updateSayHello}
+				/>
+			</div>
+			<div class="form-control w-full">
+				<label class="label" for="password">
+					<span class="label-text">Password</span>
+				</label>
+				<input
+					type="password"
+					name="password"
+					placeholder="Enter your password"
+					class="input input-bordered w-full"
+					required
+				/>
+				{#if 'password' in formErrors}
+					<label class="label" for="password">
+						<span class="label-text-alt text-red-500">{formErrors.password.message}</span>
+					</label>
+				{/if}
+			</div>
+			<div class="form-control w-full mt-10">
+				<button class="btn btn-md btn-primary">
+					<Spinner />
+					{msg}</button
+				>
+			</div>
+		</form>
+	</div>
+</div>

@@ -2,11 +2,19 @@
 	import { PUBLIC_BACKEND_BASE_URL } from '$env/static/public';
 	import { goto } from '$app/navigation';
 	import { getUserId } from '../../../utils/auth.js';
+	import { createJobAlert, showJobAlert, warningAlert } from '../../../utils/alert.js';
+	import { statusSpinner } from '../../../components/spinner.js';
+	import Spinner from '../../../components/Spinner.svelte';
+
 	let formErrors = {};
+
 
 	function afterPostjobs() {
 		goto('/');
+		createJobAlert();
 	}
+
+
 	async function inputform(evt) {
 		evt.preventDefault();
 		const getLocalData = getUserId();
@@ -23,6 +31,7 @@
 			applicationInstructions: evt.target['applicationInstructions'].value
 		};
 
+
 		const resp = await fetch(PUBLIC_BACKEND_BASE_URL + '/api/collections/jobs/records ', {
 			method: 'POST',
 			mode: 'cors',
@@ -33,10 +42,12 @@
 		});
 
 		if (resp.status === 200) {
+			statusSpinner.set(false)
+			warningAlert.set(false)
 			afterPostjobs();
 		} else {
-			const res = await resp.json;
-			formErrors = res.data;
+			statusSpinner.set(false)
+			showJobAlert();
 		}
 	}
 </script>
@@ -55,6 +66,11 @@
 				class="input input-bordered w-full"
 				required
 			/>
+			{#if 'title' in formErrors}
+			<label class="label" for="title">
+				<span class="label-text-alt text-red-500">{formErrors['title'].message}</span>
+			</label>
+		{/if}
 		</div>
 		<div class="form-control w=full px-36 mt-5">
 			<label class="label" for="minAnnualCompensation">
@@ -67,6 +83,13 @@
 				class="input input-bordered w-full"
 				required
 			/>
+			{#if 'minAnnualCompensation' in formErrors}
+			<label class="label" for="minAnnualCompensation">
+				<span class="label-text-alt text-red-500"
+					>{formErrors['minAnnualCompensation'].message}</span
+				>
+			</label>
+		{/if}
 		</div>
 		<div class="form-control w=full px-36 mt-5">
 			<label class="label" for="maxAnnualCompensation">
@@ -79,6 +102,13 @@
 				class="input input-bordered w-full"
 				required
 			/>
+			{#if 'maxAnnualCompensation' in formErrors}
+					<label class="label" for="maxAnnualCompensation">
+						<span class="label-text-alt text-red-500"
+							>{formErrors['maxAnnualCompensation'].message}</span
+						>
+					</label>
+				{/if}
 		</div>
 		<div class="form-control w=full px-36 mt-5">
 			<label class="label" for="employer">
@@ -91,6 +121,11 @@
 				class="input input-bordered w-full"
 				required
 			/>
+			{#if 'employer' in formErrors}
+					<label class="label" for="employer">
+						<span class="label-text-alt text-red-500">{formErrors['employer'].message}</span>
+					</label>
+				{/if}
 		</div>
 		<div class="form-control w=full px-36 mt-5">
 			<label class="label" for="location">
@@ -103,6 +138,11 @@
 				class="input input-bordered w-full"
 				required
 			/>
+			{#if 'location' in formErrors}
+					<label class="label" for="location">
+						<span class="label-text-alt text-red-500">{formErrors['location'].message}</span>
+					</label>
+				{/if}
 		</div>
 		<div class="form-control w-full px-36 mt-5">
 			<label class="label" for="description">
@@ -115,6 +155,11 @@
 				class="textarea textarea-bordered w-full h-56"
 				required
 			/>
+			{#if 'description' in formErrors}
+			<label class="label" for="description">
+				<span class="label-text-alt text-red-500">{formErrors['description'].message}</span>
+			</label>
+		{/if}
 		</div>
 		<div class="form-control w-full px-36 mt-5">
 			<label class="label" for="requirements">
@@ -127,6 +172,11 @@
 				class="input input-bordered w-full"
 				required
 			/>
+			{#if 'requirement' in formErrors}
+			<label class="label" for="requirement">
+				<span class="label-text-alt text-red-500">{formErrors['requirement'].message}</span>
+			</label>
+		{/if}
 		</div>
 		<div class="form-control w=full px-36 mt-5">
 			<label class="label" for="applicationInstructions">
@@ -139,9 +189,14 @@
 				class="input input-bordered w-full"
 				required
 			/>
+			{#if 'applicationinstructions' in formErrors}
+					<label class="label" for="applicationinstructions">
+						<span class="label-text-alt text-red-500">{formErrors['applicationinstructions'].message}</span>
+					</label>
+				{/if}
 		</div>
 		<div class="form-control w-full px-36 mt-5 mb-5">
-			<button class="btn text 3xl">POST JOB</button>
+            <button class="btn text 3xl"><Spinner/>POST JOB</button>
 		</div>
 	</form>
 </div>

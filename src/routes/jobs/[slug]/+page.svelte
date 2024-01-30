@@ -2,7 +2,7 @@
 	import SvelteMarkdown from 'svelte-markdown';
 	import humanize from 'humanize-plus';
 	import { getUserId } from '../../../utils/auth';
-    import { loggedIn } from '../../store.js';
+    import { loggedIn } from '../../../utils/auth';
 	export let data;
 
 
@@ -11,7 +11,7 @@
 <div>
     {#if $loggedIn == true && getUserId() == data.job.user}
         <button class='mt-10 btn ml-4'>
-            <a href='/jobs/{data.job.id}/update'>UPDATE
+            <a href='/jobs/{data.job.id}/update'>UPDATE</a>
 		</button>
     {/if}
 </div>
